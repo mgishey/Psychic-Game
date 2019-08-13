@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>The Psychic Game</title>
+</head>
+
+<body>
+
+    <button onclick="randomString()">Try it</button>
+
+    <h1>The Psychic Game</h1>
+    <p id="comp-guess">Guess what letter I'm thinking of:</p>
+
+    <p id="wins">Wins: 0</p>
+
+    <p id="losses">Losses: 0</p>
+
+    <p id="guesses-left">Guesses Left: 9</p>
+
+    <p id="guesse-so-far">Your guesses so far:</p>
+
+    <script language="javascript" type="text/javascript">
+
+        //Have the computer generate random letters
+
+        function randomString() {
+            var chars = "abcdefghiklmnopqrstuvwxyz";
+            var randomletter = '';
+            var rnum = Math.floor((Math.random() * 26) + 1);
+            console.log(rnum);
+            randomletter = chars.substring(rnum, rnum + 1);
+            document.getElementById("comp-guess").innerHTML = "Guess what letter I'm thinking of: " + randomletter;
+        }
+
+        //This is working now
+
+        
+    </script>
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
