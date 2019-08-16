@@ -43,56 +43,47 @@
         function randomString() {
 
             var chars = "abcdefghiklmnopqrstuvwxyz";
-
             var rnum = Math.floor((Math.random() * 26) + 1);
-            //console.log(rnum);
             randomLetter = chars.substring(rnum, rnum + 1);
-            document.getElementById("comp-guess").innerHTML = "Guess what letter I'm thinking of: " + randomLetter;
-            console.log(randomLetter);
-            console.log("------------" + randomLetter);
             return;
         }
 
         //Write score to webpage.
 
         function updateScore(w, l, x, u) {
-            console.log("Current guess: " + u);
             var guessesLeft = numGames - gameIndex;
 
 
-            console.log("Guesses Left: " + guessesLeft);
-            if (w == 1) {
-                totalWins++;
-                document.getElementById("wins").innerHTML = "Wins: " + totalWins;
+            //Reset variables when game is won or lost
+
+            if ((w == 1) || (l >= 9)) {
                 win = 0;
                 loss = 0;
                 guessStr = "";
                 userInput = "";
                 numGames = 9;
                 gameIndex = 0;
-                guessesLeft = 0;
             }
 
+            // Write out wins and losses
+
+            if (w == 1) {
+                totalWins++;
+                document.getElementById("wins").innerHTML = "Wins: " + totalWins;
+                guessesLeft = 0;
+            }
             if (l >= 9) {
                 totalLosses++;
                 document.getElementById("losses").innerHTML = "Losses " + totalLosses;
-                loss = 0;
-                win = 0;
-                guessStr = "";
-                userInput = "";
-                numGames = 9;
-                gameIndex = 0
             }
 
-
+            // Set up and write out guesses string
 
             if (gameIndex == 1) {
                 guessStr = u + ", ";
-                console.log("First guess string: " + guessStr);
             } else {
                 guessStr = guessStr.concat(u);
                 guessStr = guessStr + ", ";
-                console.log("Secondplus guess string: " + guessStr);
             }
 
             if (guessesLeft == 0) {
@@ -106,13 +97,6 @@
                 document.getElementById("guesses-so-far").innerHTML = "Guesses so far " + guessStr;
                 document.getElementById("guesses-left").innerHTML = "Guesses Left: " + guessesLeft;
             }
-
-            //console.log("***********************");
-            //console.log("Update Score Win: " + w);
-            //console.log("Update Score Loss " + l);
-            //console.log("Computer Letter " + x);
-            //console.log("*****************************");
-
         }
 
         //****************************//
@@ -121,40 +105,30 @@
 
         randomString();
 
-        //Get input from user
+        // When the user presses a key, it will run the following function which
+        // generates a random letter for the user to guess
 
-        // When the user presses a key, it will run the following function...
-
-        console.log("What the HELL!");
+        
         document.onkeyup = function (event) {
-            console.log("Game Index at start of function(event) " + gameIndex);
-            console.log("Wins " + win);
+
             if (gameIndex == 9) {
                 guessStr = "";
                 gameIndex = 0;
             }
 
-
-            // Determine which key was pressed, make it lowercase, and set it to the userInput variable.
+            // Determine which key was pressed, make it lowercase.
             var userInput = event.key.toLowerCase();
-            console.log("user-input: " + userInput);
-            console.log("random-letter " + randomLetter);
 
-            // If they guess the correct answer, increase and update score, alert them they got it right.
+            // If they guess the correct answer, increase and update score.
 
             if (userInput === randomLetter) {
                 win++;
-                console.log("Wins" + win);
-                //document.getElementById("wins").innerHTML = "Wins: " + win;
-
             } else {
                 loss++;
                 console.log("Losses" + loss);
             }
 
             gameIndex++;
-            console.log("Game index: " + gameIndex);
-            console.log("============================================");
             updateScore(win, loss, randomLetter, userInput);
             randomString();
         }
